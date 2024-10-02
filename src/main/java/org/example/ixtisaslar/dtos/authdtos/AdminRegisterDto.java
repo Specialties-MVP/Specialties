@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterDto {
+public class AdminRegisterDto {
     private String email;
     private String firstname;
     private String lastname;
     private String password;
-//    private String passwordRepeat;
-    private String userType;
+    private String role; // Admin için ek role bilgisi
+//    private String permissions;
 }
