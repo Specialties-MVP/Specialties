@@ -3,8 +3,8 @@ package org.example.ixtisaslar.services.impl;
 import org.example.ixtisaslar.dtos.AdminPanelDto;
 import org.example.ixtisaslar.dtos.authdtos.LoginDto;
 import org.example.ixtisaslar.dtos.authdtos.RegisterDto;
-import org.example.ixtisaslar.models.AdminPanelEntity;
-import org.example.ixtisaslar.models.UserEntity;
+import org.example.ixtisaslar.models.AdminPanel;
+import org.example.ixtisaslar.models.User;
 import org.example.ixtisaslar.repositories.AdminPanelRepository;
 import org.example.ixtisaslar.repositories.UserRepository;
 import org.example.ixtisaslar.services.AdminPanelService;
@@ -36,7 +36,7 @@ public class AdminPanelServiceImpl implements AdminPanelService {
     @Override
     public AdminPanelDto getAdminById(Long adminId) {
         // Admin ID'sine göre admin kaydını bul
-        Optional<AdminPanelEntity> adminOptional = adminPanelRepository.findById(adminId);
+        Optional<AdminPanel> adminOptional = adminPanelRepository.findById(adminId);
 
         // Eğer admin bulunursa DTO'ya çevir, yoksa null döndür
         return adminOptional.map(admin -> modelMapper.map(admin, AdminPanelDto.class)).orElse(null);
@@ -44,7 +44,7 @@ public class AdminPanelServiceImpl implements AdminPanelService {
 
     @Override
     public List<AdminPanelDto> getAllAdmins() {
-        List<AdminPanelEntity> admins = adminPanelRepository.findAll(); // Tüm adminleri veritabanından al
+        List<AdminPanel> admins = adminPanelRepository.findAll(); // Tüm adminleri veritabanından al
         List<AdminPanelDto> result = admins.stream() // Admin listesi üzerinden akış oluştur
                 .map(admin -> modelMapper.map(admin, AdminPanelDto.class)) // Her admini AdminPanelDto'ya dönüştür
                 .collect(Collectors.toList()); // Sonucu listeye topla
@@ -53,7 +53,7 @@ public class AdminPanelServiceImpl implements AdminPanelService {
 
     @Override
     public boolean login(LoginDto loginDto) {
-        AdminPanelEntity admin = adminPanelRepository.findByUser_Email(loginDto.getEmail());
+        AdminPanel admin = adminPanelRepository.findByUser_Email(loginDto.getEmail());
         if (admin == null) {
             return false; // Admin bulunamazsa false döner
         }
@@ -72,7 +72,7 @@ public class AdminPanelServiceImpl implements AdminPanelService {
     @Override
     public boolean register(RegisterDto registerDto) {
         // Kullanıcının e-posta adresine göre var olup olmadığını kontrol et
-        UserEntity existingUser = userRepository.findByEmail(registerDto.getEmail());
+        User existingUser = userRepository.findByEmail(registerDto.getEmail());
         if (existingUser == null) {
             System.out.println("E-posta veritabanında bulunamadı. Yeni kullanıcı oluşturulacak.");
         } else {
@@ -81,16 +81,16 @@ public class AdminPanelServiceImpl implements AdminPanelService {
         }
 
         // Yeni UserEntity oluştur
-        UserEntity newUser = new UserEntity();
+        User newUser = new User();
         newUser.setEmail(registerDto.getEmail());
         newUser.setFirstName(registerDto.getFirstname());
         newUser.setLastName(registerDto.getLastname());
         newUser.setPassword(bCryptPasswordEncoder.encode(registerDto.getPassword())); // Şifreyi hashle
-        newUser.setCreatedAt(new Timestamp(System.currentTimeMillis())); // Kayıt oluşturulma tarihi
-        newUser.setUpdatedAt(new Timestamp(System.currentTimeMillis())); // Kayıt güncellenme tarihi
+//        newUser.setCreatedAt(new Timestamp(System.currentTimeMillis())); // Kayıt oluşturulma tarihi
+//        newUser.setUpdatedAt(new Timestamp(System.currentTimeMillis())); // Kayıt güncellenme tarihi
 
         // Yeni AdminPanelEntity oluştur ve kullanıcıyı admin paneli ile ilişkilendir
-        AdminPanelEntity newAdmin = new AdminPanelEntity();
+        AdminPanel newAdmin = new AdminPanel();
         newAdmin.setUser(newUser); // Admin ile kullanıcıyı ilişkilendir
 
         // Varsayılan izinleri JSON formatında ayarla

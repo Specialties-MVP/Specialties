@@ -1,8 +1,8 @@
 package org.example.ixtisaslar.repositories;
 
-import org.example.ixtisaslar.models.AdminPanelEntity;
+import org.example.ixtisaslar.models.AdminPanel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdminPanelRepository extends JpaRepository<AdminPanelEntity,Long> {
-    AdminPanelEntity findByUser_Email(String email);
+public interface AdminPanelRepository extends JpaRepository<AdminPanel,Long> {
+    AdminPanel findByUser_Email(String email);
 }

@@ -1,0 +1,10 @@
+[
+  {
+    "question": "Hangi alanı tercih edersin?",
+    "options": ["Teknik", "Sanat", "Sosyal Bilimler", "Doğa Bilimleri"]
+  },
+  {
+    "question": "Hangi çalışma ortamını tercih edersin?",
+    "options": ["Ofis", "Dış Mekan", "Laboratuvar", "Uzaktan"]
+  }
+]

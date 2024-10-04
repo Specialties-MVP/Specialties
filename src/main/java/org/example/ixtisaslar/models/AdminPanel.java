@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Table(name = "admin_panel")
-public class AdminPanelEntity {
+public class AdminPanel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
@@ -22,6 +22,6 @@ public class AdminPanelEntity {
     private Timestamp lastLogin;
     @ManyToOne // Admin, bir kullanıcıya bağlıdır
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user; // Adminin hangi kullanıcıya ait olduğunu belirtir
+    private User user; // Adminin hangi kullanıcıya ait olduğunu belirtir
 
 }
