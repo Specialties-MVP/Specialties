@@ -69,3 +69,4 @@ public class AdminPanelController {
 //        return ResponseEntity.status(HttpStatus.CREATED).body("Admin başarıyla kaydedildi.");
 //    }
 }
+//test
