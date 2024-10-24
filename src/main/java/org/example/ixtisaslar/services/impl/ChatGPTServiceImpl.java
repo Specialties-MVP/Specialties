@@ -2,6 +2,7 @@ package org.example.ixtisaslar.services.impl;
 import com.nimbusds.jose.shaded.gson.Gson;
 import com.nimbusds.jose.shaded.gson.JsonArray;
 import com.nimbusds.jose.shaded.gson.JsonObject;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -18,15 +19,21 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class ChatGPTServiceImpl implements ChatGPTService {
     @Value("${openai.api.key}")
-    private String apiKey;
+//    private String apiKey;
 
-    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
+    private static final Dotenv dotenv = Dotenv.configure()
+            .directory(System.getProperty("user.dir"))  // Proje kök dizini
+            .load();
+    private static final String apiKey = dotenv.get("OPENAI_API_KEY");
 
 
 
     @Override
     public String askQuestion(String question) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        // API anahtarını kontrol edin
+        System.out.println("API Key: " + apiKey);
 
         // Yeni API URL'sini kullanıyoruz
         HttpPost request = new HttpPost("https://api.openai.com/v1/chat/completions");
