@@ -102,6 +102,19 @@
             <version>2.2.0</version>
         </dependency>
 
+        <!-- POM.xml'e PDFBox bağımlılığını ekleyin -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
+        </dependency>
+        <!-- pom.xml dosyanıza eklemeniz gereken dependency -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
+        </dependency>
+
     </dependencies>
 
     <build>
